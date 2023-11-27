@@ -57,7 +57,7 @@ module.exports = {
 		let rank = 1;
 		for (const userData of leaderBoard) {
 			const user = await interaction.client.users.fetch(userData.userId);
-			leaderBoardString = leaderBoardString.concat(`\n${rank}. ${user.tag}: ${userData.reactionCount}`);
+			leaderBoardString = leaderBoardString.concat(`\n${rank}. ${user}: ${userData.reactionCount}`);
 			rank++;
 		}
 
@@ -68,7 +68,7 @@ module.exports = {
 			}
 			else {
 				const user = await interaction.client.users.fetch(topUser);
-				replyString = `The winner is ${user.tag} with ${topCount} votes!\n`;
+				replyString = `The winner is ${user} with ${topCount} votes!\n`;
 			}
 			await interaction.reply(replyString + leaderBoardString);
 		}
