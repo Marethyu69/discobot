@@ -9,7 +9,13 @@ dotenv.config();
 const token = process.env.BOT_TOKEN;
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.GuildMembers,
+	GatewayIntentBits.GuildMessageReactions],
+});
 
 // Load Commands
 client.commands = new Collection();

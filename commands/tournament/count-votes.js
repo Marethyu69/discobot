@@ -3,17 +3,23 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('count-votes')
-		.setDescription('Counts votes (Reactions with ❤️) since the last "new tourney round" message'),
+		.setDescription('Counts votes (Reactions with ❤️) since the last "new tourney" message'),
 	async execute(interaction) {
 		const channel = interaction.channel;
 
 		const reactionCounts = new Map();
 
 		if (channel) {
-			const messages = await channel.messages.fetch({ limit: 100 });
+			const messages = await channel.messages.fetch({ limit: 100, caches: false });
+			let currentTourneyExited = false;
 
 			messages.each(msg => {
-				if (msg.createdTimestamp < interaction.createdTimestamp) {
+				if (msg.content === 'new tourney') {
+					currentTourneyExited = true;
+					console.log(msg.content);
+				}
+				if ((!currentTourneyExited) && (msg.createdTimestamp < interaction.createdTimestamp)) {
+					console.log(msg.content);
 					msg.reactions.cache.forEach(async (reaction) => {
 						if (reaction.emoji.name === '❤️') {
 							const user = msg.author;
@@ -35,6 +41,8 @@ module.exports = {
 				topUser = userId;
 				topCount = reactionCount;
 			}
+
+
 		}
 
 		if (topUser) {
