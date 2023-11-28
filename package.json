@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc",
-    "prestart": "npx tsc",
+    "build": "tsup src/index.ts",
+    "prestart": "tsup src/index.ts",
     "start": "node ./dist/index.js",
-    "start:dev": "nodemon ./src/index.ts"
+    "build:dev": "tsup src/index.ts --watch",
+    "start:dev": "nodemon --watch dist dist/index.js",
+    "dev": "tsup src --watch --onSuccess \"node dist/index.js\""
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +26,7 @@
     "eslint-config-prettier": "^9.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
-    "typescript": "^5.3.2",
-    "ts-node": "^10.9.1"
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.2"
   }
 }
