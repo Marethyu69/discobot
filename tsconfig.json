@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist",
+      "noEmitOnError": true,
+      "noImplicitAny": true,
+      "module": "CommonJS",
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "sourceMap": true,
+      "declaration": false,
+      "downlevelIteration": true,
+      "experimentalDecorators": true,
+      "moduleResolution": "node",
+      "importHelpers": true,
+      "target": "ES2022",
+      "useDefineForClassFields": false,
+    },
+    "include": ["./src/**/*"],
+    
+}
