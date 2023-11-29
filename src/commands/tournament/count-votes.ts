@@ -13,7 +13,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("count-votes")
     .setDescription(
-      'Counts votes (Reactions with ❤️) since the last "new tourney" message',
+      'Counts votes (Reactions with ❤️) since the last "new tourney" message for every prompt channel',
     ),
   async execute(interaction: ChatInputCommandInteraction) {
     const channel = interaction.channel;
@@ -37,7 +37,11 @@ module.exports = {
 
     for (const [_, categoryChannel] of categoryChannels) {
       if (!categoryChannel.isTextBased()) {
-        return;
+        continue;
+      }
+
+      if (!categoryChannel.name.startsWith("prompt")) {
+        continue;
       }
       const channelspecificLeaderBoard = await doRatingForChannel(
         categoryChannel,
@@ -152,7 +156,7 @@ async function outputLeaderBoardToChannel(
     }
 
     let replyString = "";
-    if (leaderBoard[0].reactionCount === leaderBoard[1].reactionCount) {
+    if (leaderBoard[0].reactionCount === leaderBoard[1]?.reactionCount) {
       replyString = "It's a draw!\n";
     } else {
       const user = await interaction.client.users.fetch(topUser);
